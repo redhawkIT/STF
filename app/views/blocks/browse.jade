@@ -1,0 +1,40 @@
+extends ../head
+
+append css
+	link(rel='stylesheet' href='/css/blocks.css')
+
+block content
+	.container
+		.row
+			if isCommitteeMember
+				.col-xs-12.col-md-8
+					mixin explanation()
+						h2 Blocks
+						p Blocks are departments, units or groups that receive continuous funding from the STF over multiple years. The continuous funding model is offered to organizations that have shown remarkable, efficient and widespread value gained from STF expenditures. 
+					+explanation()
+					
+				.col-xs-12.col-md-4.well
+					h3 New Block
+					p As a committee member, you may create and propose new blocks
+					a(href='/blocks/create')
+						button(type='button').btn.btn-success Get Started
+
+			else
+				.col-xs-12
+					+explanation()
+
+			hr
+
+		for block in blocks
+			.col-xs-12.col-md-6
+				.block-wrap
+					.block
+						.jumbotron(style='background-image: url(/img/#{block.Background}); background-position: center 40%; background-repeat: no-repeat; background-size: cover; ')
+							h2.name= block.Name
+						.block-desc
+							if block.MissionStatement
+								p #{block.MissionStatement.substring(0, 200)}...
+							else
+								p #{block.ProposedAbstract.substring(0, 200)}...
+						a(href='/blocks/#{block.id}')
+							button(type='button').btn.btn-primary.pull-right Details

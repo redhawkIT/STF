@@ -1,0 +1,91 @@
+extends ../head
+
+append css
+	link(rel='stylesheet', href='/css/metricscreate.css')
+
+block content
+	.container
+		form(method='post' name='metricForm' action='/create/metrics/#{proposal.Year}/#{proposal.Number}')
+			h2 Metrics for #{proposal.ProposalTitle}
+			a(href='/metrics/#{proposal.Year}/#{proposal.Number}') Return to Metrics
+			|  / 
+			a(href='/proposals/#{proposal.Year}/#{proposal.Number}') View Proposal
+			
+			p= questions.impact[1]
+			.rowMetrics
+				//- var q = [questions.impact, questions.method, questions.accessibility]
+				- for (index in questions.impact) {
+					- var n = 1
+					- var count = 0
+					- var val = questions.impact[index]
+					- for (i in questions.impact[index]) {
+					- 	count++;
+					- }
+					//-p  #{count}  
+					while n < count
+						.col-lg-3.col-md-4.col-sm-6.col-xs-12.colsMetrics
+							.question-wrap
+								h4= val.name
+								p #{val[n]}
+								.input-wrap-outer
+									p.score score: 
+										//-p= metric[index + n]
+										if n == 1
+											input(name='#{index}' type='number' size='3' autofocus='autofocus' required='required' min='1' max='5' value='#{(metric) ? metric[index] : ""}')
+										else
+											input(name='#{index}' type='number' size='3' required='required' min='1' max='5' value='#{(metric) ? metric[index] : ""}')
+						- n++ 
+				- }
+				- for (index in questions.method) {
+					- var n = 1
+					- var count = 0
+					- var val = questions.method[index]
+					- for (i in questions.method[index]) {
+					- 	count++;
+					- }
+					//-p  #{count}  
+					while n < count
+						.col-lg-3.col-md-4.col-sm-6.col-xs-12.colsMetrics
+							.question-wrap
+								h4= val.name
+								p #{val[n]}
+								.input-wrap-outer
+									p.score score: 
+										//-p= metric[index + n]
+										if n == 1
+											input(name='#{index}' type='number' size='3' autofocus='autofocus' required='required' min='1' max='5' value='#{(metric) ? metric[index] : ""}')
+										else
+											input(name='#{index}' type='number' size='3' required='required' min='1' max='5' value='#{(metric) ? metric[index] : ""}')
+						- n++ 
+				- }
+				- for (index in questions.accessibility) {
+					- var n = 1
+					- var count = 0
+					- var val = questions.accessibility[index]
+					- for (i in questions.accessibility[index]) {
+					- 	count++;
+					- }
+					//-p  #{count}  
+					while n < count
+						.col-lg-3.col-md-4.col-sm-6.col-xs-12.colsMetrics
+							.question-wrap
+								h4= val.name
+								p #{val[n]}
+								.input-wrap-outer
+									p.score score: 
+										//-p= metric[index + n]
+										if n == 1
+											input(name='#{index}' type='number' size='3' autofocus='autofocus' required='required' min='1' max='5' value='#{(metric) ? metric[index] : ""}')
+										else
+											input(name='#{index}' type='number' size='3' required='required' min='1' max='5' value='#{(metric) ? metric[index] : ""}')
+						- n++ 
+				- }
+
+				.col-xs-12
+					.question-wrap
+						h4 Additional Notes
+						.text-wrap: textarea(name="Notes") #{(metric) ? metric["Notes"] : ""}
+			p.subtitle Jump to proposal ID 
+				input(name='Next' type='number' size='4')
+				|  on submit
+			button(action='submit' value='Submit').btn.btn-default.form-button Submit Metrics

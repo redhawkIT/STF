@@ -1,0 +1,75 @@
+.pre {
+	min-height: 10%;
+	-webkit-clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+	clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+
+.post {
+	min-height: 10%;
+	-webkit-clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+	clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+}
+
+.wrap {
+	background-color: white;
+}
+
+.pre, .post, body {
+	background-color: #4b2e83;
+}
+
+body, html {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+.pre, .post {
+	height: 100px;
+	width: 100%;
+}
+
+img {
+	max-width: 80%;
+}
+
+.container {
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
+
+@media screen and (min-width: 700px) {	
+
+	.pre, .post{
+		width: 100%;
+		height: 20%;
+	}
+
+	.container {
+		max-width: 800px;
+	}
+
+	h1 {
+		text-align: center;
+	}
+
+	p {
+		padding-left: 200px;
+		padding-right: 200px;
+	}
+
+	body {
+		height: 100%;
+		width: 100%;
+	}
+
+	img {
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+		padding-bottom: 50px;
+
+	}
+}

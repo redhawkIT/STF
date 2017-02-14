@@ -1,0 +1,257 @@
+extends ../head
+
+append css
+	link(rel='stylesheet', href='/css/proposalview.css')
+	link(rel='stylesheet', href='/css/blockview.css')
+
+block content
+	.jumbotron(style='background-image: url(#{background}); background-position: center 40%; background-repeat: no-repeat; background-size: cover; ')
+		.container
+			h1= block.Name
+
+
+		//- for blocks awaiting prliminary votes, and failed preliminary votes
+	if block.Status < 2
+		.container
+			.row.well
+				.col-sm-12.col-md-3
+					if isAdmin || isApproved
+						h3 Edit Application
+						a(href='/blocks/update/#{block.id}')
+							button(type='button').btn.btn-warning Update Application
+					h3 Status
+					p !{status}
+
+
+				.col-sm-12.col-md-9
+					h3 Contact Info
+					.row.contacts.rowsContact
+						.col-xs-12.col-sm-4.col-md-4.colsContact
+							table
+								tbody
+									th.contactType Primary
+									tr
+										th Name
+										td= block.PrimaryName
+									tr
+										th NetID
+										td= block.PrimaryNetId
+						.col-xs-12.col-sm-4.col-md-4.colsContact
+							table
+								tbody
+									th.contactType Budget
+									tr
+										th Name
+										td= block.BudgetName
+									tr
+										th NetID
+										td= block.BudgetNetId
+						.col-xs-12.col-sm-4.col-md-4.colsContact
+							table
+								tbody
+									th.contactType Head
+									tr
+										th Name
+										td= block.HeadName
+									tr
+										th NetID
+										td= block.HeadNetId
+
+			.row
+				.col-md-8
+					h3 Block Induction Invitation
+					p A member of The Student Technology Fee Committee has made a motion to extend Block status to #{block.Name}. The committee will take a Vote of Interest to confirm if the committee at large would like to pursue additional information regarding the group. Below is the provided rationale, presented by #{proposer.NetId}
+					p= block.ProposedAbstract
+
+
+				.col-md-4.well
+					h2 Voting
+					p This motion is open for a Vote of Interest. Should the STFC request additional information from #{block.Name}?
+					p Current tally: 
+					ul.tally
+						li Yes: #{one}
+						li No: #{two}
+					if !isCommitteeMember || block.Status != 0
+					else if !voted
+						.row
+							form(method='post' action='/blocks/invitationvote/#{block.id}')
+								.col-xs-8
+									select(name='Value').form-control
+										option(value='1') Yes
+										option(value='2') No
+								.col-xs-4
+									button(type='submit').btn.btn-primary Submit
+					else
+						p: b You have already voted
+					if isAdmin && block.Status == 0
+						br
+						a(href='/blocks/close/#{block.id}')
+							button(type='button').btn.btn-danger Close Voting
+
+		
+
+
+
+
+		//- for blocks that are having their information updated and have submitted
+	else
+		.container
+			.row 
+				if block.Status == 2
+					p.draft-alert This is a draft proposal, and has not been submitted yet. Information is subject to change.
+			.row.well
+				.col-sm-12.col-md-3
+					if isAdmin || isApproved
+						h3 Edit Application
+						a(href='/blocks/update/#{block.id}')
+							button(type='button').btn.btn-warning Update Application
+					h3 Status
+					p !{status}
+
+
+				.col-sm-12.col-md-9
+					h3 Contact Info
+					.row.contacts.rowsContact
+						.col-xs-12.col-sm-4.col-md-4.colsContact
+							table
+								tbody
+									th.contactType Primary
+									tr
+										th Name
+										td= block.PrimaryName
+									tr
+										th Title
+										td= block.PrimaryTitle
+									tr
+										th Phone
+										td= block.PrimaryPhone
+									tr
+										th NetID
+										td= block.PrimaryNetId
+									tr
+										th Mailbox
+										td= block.PrimaryMail
+						.col-xs-12.col-sm-4.col-md-4.colsContact
+							table
+								tbody
+									th.contactType Budget
+									tr
+										th Name
+										td= block.BudgetName
+									tr
+										th Title
+										td= block.BudgetTitle
+									tr
+										th Phone
+										td= block.BudgetPhone
+									tr
+										th NetID
+										td= block.BudgetNetId
+									tr
+										th Mailbox
+										td= block.BudgetMail
+
+						.col-xs-12.col-sm-4.col-md-4.colsContact
+							table
+								tbody
+									th.contactType Head
+									tr
+										th Name
+										td= block.HeadName
+									tr
+										th Title
+										td= block.HeadTitle
+									tr
+										th Phone
+										td= block.HeadPhone
+									tr
+										th NetID
+										td= block.HeadNetId
+									tr
+										th Mailbox
+										td= block.HeadMail
+
+
+
+
+			.row.well
+				if block.Status == 3
+					.col-xs-12.col-md-8
+						+invitation(block)
+					.col-xs-12.col-md-4
+						+voting(block)
+				else
+					.col-xs-12
+						+invitation(block)
+					
+				mixin voting(b)
+					h2 Voting
+					p Final voting on the induction of #{b.Name}
+					p Current tally: 
+					ul.tally
+						li Yes: #{three}
+						li No: #{four}
+						if !isCommitteeMember || b.Status != 3
+						else if !voted
+							.row
+								form(method='post' action='/blocks/finalvote/#{b.id}')
+									.col-xs-8
+										select(name='Value').form-control
+											option(value='3') Yes
+											option(value='4') No
+									.col-xs-4
+										button(type='submit').btn.btn-primary Submit
+						else
+							p: b You have already voted
+						if isAdmin && b.Status == 3
+							br
+							a(href='/blocks/close/#{b.id}')
+								button(type='button').btn.btn-danger Close Voting
+
+				mixin invitation(b)
+					h3 Block Induction Invitation
+					p The Student Technology Fee Committee passed an initial Vote of Interest, inviting #{b.Name} to supply additional information to the committee before a final block induction vote. 
+					p= b.ProposedAbstract
+
+						
+				
+			
+
+			.row
+				.col-xs-12
+
+					hr
+					h2 Purpose
+					h3 History
+					p= block.History
+					h3 Vision Statement
+					p= block.VisionStatement
+					h3 Goals
+					p= block.Goals
+
+					hr
+					h2 Structure
+					h3 Structure
+					p= block.Structure
+					h3 Services Organization
+					p= block.Service
+					h3 Access and Adminstration
+					p= block.Adminstration
+					
+					hr
+					h2 Funding
+					h3 Estimated Yearly Ask
+					p= block.Estimate
+					h3 Budget
+					p= block.Budget
+					h3 Included
+					p= block.Included
+					h3 Other Sources of Support
+					p= block.OtherSources
+					
+					hr
+					h2 Reliability
+					h3 Turnover Plan
+					p= block.Turnover
+					h3 Contingency Plan
+					p= block.PlanB

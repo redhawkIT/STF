@@ -1,0 +1,56 @@
+
+//- the homepage
+extends head
+
+block content
+		.jumbotron(style='background: url(img/index.jpg); background-position: center 40%; background-repeat: no-repeat; background-size: cover;')
+			.container
+				h1= title
+		// Grid
+		.container.announcements
+			.row
+				//-h2 Announcements
+
+				.col-sm-9(style='background-color:#FAFAFA;')
+					h2 Snow Day Schedule Update
+					p.
+						Monday the 6th's meeting was canceled do due weather. Proposal authors that were not able to present should expect to present this coming Monday the 13th. Please look for an email from #[a(href='mailto:techfee@uw.edu') techfee@uw.edu] for instructions 
+				.col-sm-9(style='background-color:#FAFAFA;')
+					h2 Proposals Under Review
+					p.
+						The Student Technology Fee Committee is currently reviewing Winter Quarter proposals. If you've submitted for this quarter, expect an email requesting your presense for your presentation. 
+
+				//- .col-sm-9(style='background-color:#FAFAFA;')
+				//- 	h2 Proposal Workshops Announced!
+				//- 	p.
+				//- 		 Workshops are a great oppurtunity to meet STF leadership, ask questions in a low-stakes setting, and craft a proposal. We are holding a final workshop #[b Tuesday January 17th at 12:30pm in HUB 303]. 
+
+
+				//- 	.row
+				//- 		.col-sm-6: a(href='/docs/Summary%20of%20Changes.pdf') Summary of Changes &gt;
+				//- 		.col-sm-6: a(href='/docs/Current%20Request%20for%20Proposals.pdf') Request for Proposals &gt;
+					hr
+
+				.col-sm-9(style='background-color:#FAFAFA;')
+					h3 Supplemental Reminder
+					p.
+						If you plan on writing a supplemental, make sure to submit it when you are finished ('Submit Supplemental' on the Edit Supplemental page). If you are have any issues or questions, please email us.
+					hr
+
+				.col-sm-3(style='display:table-cell; float:none;')
+					h3 Meetings
+					ul.no-style
+						li Every Monday, 3:30 - 5:30 PM 
+						li Location: HUB 303
+						//- li The first Winter meeting will be
+						//- li January 9th, 3:30 - 5:30 PM
+						//- li HUB 303, UW Seattle
+					a(href="/calendar") View All Events
+
+				.col-sm-9(style='background-color:#FAFAFA;')
+					h3 About
+					p.
+						The Student Technology Fee and its committee appropriate over $4 million to the students of the University of Washington. Every student enrolled at UW pays a small fee per quarter, which is aggregated and then paid out to supplement the technological requirements of the student body.
+					a(href='/about') Read More &gt;			
+
+

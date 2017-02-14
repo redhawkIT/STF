@@ -1,0 +1,150 @@
+.container {
+	white-space: pre-line;
+}
+
+.draft-alert {
+	padding: 5px;
+	background-color: #FF4499;
+	color: white;
+	border-radius: 5px;
+}
+
+.title {
+	margin-bottom: 4px;
+} 
+
+.basic tr * {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+td {
+	padding-top: 2px;
+}
+
+.colsContact {
+	height: 100%;
+	display: flex;
+	height: auto; 
+	flex: 1 1 auto;
+}
+
+
+
+.contacts {
+	display: flex;
+}
+.contacts > div > table > tbody > th {
+	padding: 3px;
+}
+
+.contactType {
+	color: #000000 !important;
+	padding-bottom: 4px !important;
+	padding-left: 0px;
+}
+
+.contacts tbody > tr > th {
+	font-weight: bold;
+	color: rgb(75, 46, 131);
+}
+
+.contacts tbody > tr > * {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.contacts tbody > tr:last-child * {
+	padding-bottom: 10px !important;
+}
+
+.endorsement {
+	border-radius: 6px;
+	padding: 10px;
+	background-color: #EEEEEE;
+	margin: 8px;
+}
+
+.items {
+	margin: 8px;
+	border-radius: 6px;
+}
+
+.items h4 {
+	font-weight: bold;
+}
+
+.items > tbody > tr.item-info,
+.items > tbody > tr.item-info,
+.items > tbody > tr.item-info {
+	background-color: #DDDDDD;
+}
+
+.item-head {
+	background-color: #FAFAFA; 
+	font-size: 1.2em;
+}
+
+.item-info {
+	background-color: #EEEEEE;
+}
+
+.item-info > td {
+	padding-bottom: 0px;
+	padding-top: 0px;
+}
+
+.info-first-line > td {
+	padding-bottom: 6px;
+	padding-top: 5px;
+	background-color: #EEEEEE;
+	margin-bottom: 4px;
+}
+
+.item-info span {
+	color: rgb(75, 46, 131);
+	font-weight: bold;
+}
+
+.info-last-line > td {
+	padding-bottom: 10px;
+}
+
+.hidden {
+	display: none;
+}
+
+table {
+	width: 100%;
+}
+
+.colsContact > table {
+	width: auto;
+}
+.colsContact {
+	display:block;
+}
+@media (max-width: 992px) {
+	table {
+		width: auto;
+	}
+	.rowsContact {
+		overflow: overflow;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		margin-top: 10px;
+	}
+}
+
+.funded .item-head {
+	background-color: #DFF0D8 !important;
+}
+
+.funded tr.item-info {
+	background-color: #EEEEEE !important;
+}
+
+.funded .info-first-line > td {
+	background-color: #FAFAFA;
+}

@@ -1,0 +1,24 @@
+.metrics {
+	background-color: #F5F5F5;
+	padding: 6px;
+	border-radius: 5px;
+}
+
+.proposal {
+	border-radius: 5px;
+	background-color: #DEDEDE;
+	padding: 6px;
+	margin-bottom: 10px;
+}
+
+.proposal h3 {
+	margin-top: 10px;
+}
+
+.notes {
+	white-space: pre-line;
+}
+
+#toast-container {
+	margin-top: 10px;
+}

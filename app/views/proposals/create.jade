@@ -1,0 +1,94 @@
+extends ../head
+
+append css
+	link(rel='stylesheet', href='/css/toastr.css')
+	link(rel='stylesheet', href='/css/proposalcreate.css')
+
+append js
+	script(src='/js/vendor/toastr.js')
+	script(src='/js/proposals.js')
+
+
+block content
+	.container
+		h2 New Proposal
+		.row.form-group
+			.col-xs-12
+				ul.nav.nav-pills.nav-justified.thumbnail.setup-panel.form-ul
+					li.active
+						a(href='#step-1').step-1
+							h4.list-group-item-heading Introduction
+							p.list-group-item-text Name, Category & Deptartment
+					li.disabled
+						a(href='#step-2')
+							h4.list-group-item-heading Persons
+							p.list-group-item-text Proposal Contact Info
+					li.disabled
+						a(href='#step-3')
+							h4.list-group-item-heading Abstract
+							p.list-group-item-text Quick Proposal Overview
+					li.disabled
+						a(href='#step-4')
+							h4.list-group-item-heading Description
+							p.list-group-item-text Student Usage & Scholarship
+					li.disabled
+						a(href='#step-5')
+							h4.list-group-item-heading Availability
+							p.list-group-item-text Proposal General Usage
+					li.disabled
+						a(href='#step-6')
+							h4.list-group-item-heading Timeline
+							p.list-group-item-text Installation and Resources
+					li.disabled
+						a(href='#step-7')
+							h4.list-group-item-heading Items
+							p.list-group-item-text The Requested Items
+					li.disabled
+						a(href='#step-8')
+							h4.list-group-item-heading Signature Page
+							p.list-group-item-text Submit your Proposal
+		div
+			form.form-horizontal(data-toggle='formcache', name='proposalForm',
+				method='post', action='/proposals')
+				#step-1.setup-content
+					.col-xs-12
+						.col-md-12.well
+							//Introduction Form
+							.form-horizontal(data-toggle='formcache', name='proposalForm')
+								fieldset
+									// Form Name
+									legend
+									// Text input
+									.form-group
+										label.col-md-4.control-label(for='title') Title
+
+										.col-md-5
+											input#title.form-control.input-md(name='title', type='text', placeholder='title')
+
+											span.help-block Title for your proposal. Must be longer than 10 chars.
+									// Select Basic
+									.form-group
+										label.col-md-4.control-label(for='category') Category
+										.col-md-4
+											select#category.form-control(name='category')
+												each val, index in categories
+													option(value='#{index}')= val.name
+									// Select Basic
+									.form-group
+										label.col-md-4.control-label(for='department') Department
+
+										.col-md-4
+											select#department.form-control(name='department')
+												each val, index in departments
+													option(value='#{val}') #{val}
+											p: a#newDepartment(href='') Enter a Different Department
+									.form-group
+										label.col-md-4.control-label(for='saveAndContinue')
+										br
+										.col-md-4
+										.col-md-4
+											if settings.ProposalSubmissions == 1
+												button#create.btn.btn-primary.form-button(type='submit', name='saveAndContinue') Create
+											else
+												button#create.disabled.btn.btn-primary.form-button(type='submit', name='saveAndContinue') Create
+												span.help-block Submissions are currently closed

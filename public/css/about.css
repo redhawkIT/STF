@@ -1,0 +1,20 @@
+.members img {
+	width: 100%;
+	border-radius: 50%;
+	margin-bottom: 10px
+}
+
+.members {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.member-wrapper {
+	margin-bottom: 40px;
+	margin-top: 20px;
+}
+
+.member-wrapper h2 {
+	margin-top: 0px;
+	padding-top: 0px;
+}

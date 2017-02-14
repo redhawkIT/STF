@@ -1,0 +1,22 @@
+.proposalView {
+	margin-top: 14px;
+}
+
+table .btn {
+	padding: 2px;
+	padding-right: 4px;
+	padding-left: 4px;
+}
+
+tr:nth-child(4n), tr:nth-child(4n-1) {
+	background-color: #efefef;
+}
+
+tr:nth-child(4n-2), tr:nth-child(4n-3) {
+	background-color: #fbfbfb;
+}
+
+#voteButton {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

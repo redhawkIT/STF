@@ -1,0 +1,145 @@
+.announcement, .announcement h1 {
+	background-color: #c52018; /* red */
+	background-color: #e69420; /* orange */
+	background-color: #628bac;
+	color: white !important;
+	padding-bottom: 2px;
+	margin-bottom: 0px;
+}
+
+#simple-first {
+	margin-top: 10px;
+}
+
+.no-style {
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+.navbar-nav > li {
+	margin-top: 12px;
+	margin-right: 3px;
+	margin-left: 3px;
+}
+
+.anchor-name:hover {
+	text-decoration: none; 
+}
+
+.jumplist a {
+	text-decoration: none;
+	color: rgb(75, 46, 131);
+}
+
+.jumplist li {
+	list-style-type: none;
+	padding-left: 0px;
+	margin-left: 6px;
+	margin-bottom: 4px;
+}
+
+.jumbotron h1, .jumbotron p  {
+	color: #FFFFFF;
+}
+
+.jumbotron a {
+	font-size: 21px;
+}
+
+.card {
+	background-color: #FAFAFA;
+	-webkit-box-shadow: 5px 5px 0px 3px rgba(220,217,220,1);
+	-moz-box-shadow: 5px 5px 0px 3px rgba(220,217,220,1);
+	box-shadow: 5px 5px 0px 3px rgba(220,217,220,1);
+	padding: 20px;
+	overflow: auto;
+	height: 100%
+}
+
+.navbar-stf {
+	padding: 8px;
+}
+
+.navbar-stf img {
+	height: 100%;
+}
+
+
+.status-0 {
+	background-color: #BBBBBB;
+}
+
+.status-1 {
+	background-color: #888888;
+}
+
+.status-2 {
+	background-color: #2f96b4;
+}
+
+.status-3 {
+	background-color: #f89406;
+}
+
+.status-4 {
+	background-color: #51a351;
+}
+
+.status-5 {
+	background-color: #51a351;
+}
+
+.status-6 {
+	background-color: #bd362f;
+}
+
+.status-7 {
+	background-color: #FFFFFF;
+	color: black;
+}
+
+.status-8 {
+	background-color: #FFFFFF;
+	color: black;
+}
+
+.status-block-0 {
+	background-color: #BBBBBB;
+}
+.status-block-1 {
+	background-color: #bd362f;
+}
+.status-block-2 {
+	background-color: #2f96b4;
+}
+.status-block-3 {
+	background-color: #f89406;
+}
+.status-block-4 {
+	background-color: #bd362f;
+}
+.status-block-5 {
+	background-color: #51a351;
+}
+.status-block-6 {
+	background-color: #000000;
+}
+
+.status-wrap {
+	margin: 2px;
+	color: white;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.status-wrap p {
+	margin-bottom: 0px !important;
+}
+
+
+.subtitle {
+	padding-top: 0px;
+	margin-top: 4px;
+	font-style: italic;
+	color: #555555;
+}

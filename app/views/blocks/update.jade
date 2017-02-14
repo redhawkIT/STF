@@ -1,0 +1,342 @@
+extends ../head
+
+append js
+	script(src='/js/vendor/toastr.js')
+	script(src='/js/blocks.js')
+
+append css
+	link(rel='stylesheet' href='/css/toastr.css')
+	link(rel='stylesheet' href='/css/proposalcreate.css')
+	//-link(rel='stylesheet' href='/css/blockcreate.css')
+
+
+block content
+	.container
+		h2 New Block
+		.row.form-group
+			.col-xs-12
+				ul.nav.nav-pills.nav-justified.thumbnail.setup-panel.form-ul
+
+					li.active
+						a(href='#step-1').step-1
+							h4.list-group-item-heading Introduction
+							p.list-group-item-text Name &amp; Contacts
+					li
+						a(href='#step-2').step-2
+							h4.list-group-item-heading Purpose
+							p.list-group-item-text History, Goals and Vision
+					li
+						a(href='#step-3').step-3
+							h4.list-group-item-heading Structure
+							p.list-group-item-text Organizational Structure
+					li
+						a(href='#step-4').step-4
+							h4.list-group-item-heading Funding
+							p.list-group-item-text Budget &amp; Estimates
+					li
+						a(href='#step-5').step-5
+							h4.list-group-item-heading Reliability
+							p.list-group-item-text Contingency Plans
+					li
+						a(href='#step-6').step-6
+							h4.list-group-item-heading Signature Page
+							p.list-group-item-text Submit your Block
+		div
+			form.form-horizontal#updateBlock(data-toggle='formcache', method='post', action='/blocks/update/#{block.id}')
+				#step-1.setup-content
+					.col-xs-12
+						h3.text-center Name
+						.col-md-12.well
+							.form-horizontal(data-toggle='formcache', name='blockForm')
+								fieldset
+									.form-group
+										label.col-md-4.control-label(for='Name') Name
+										.col-md-5
+											input#Name.form-control.input-md(name='Name', type='text', placeholder='Name', value="#{block.Name}")
+
+											span.help-block The name of your group or organization
+
+					.col-xs-12
+						h3.text-center Contacts
+						.col-md-12.well
+							.form-horizontal(data-toggle='formcache', name='contactForm')
+								h4.text-center  Primary
+								span.help-block Your Primary person is the first person we contact for questions about your block. Although all persons you enter below will be able to edit the block, the primary is our first point of contact. A primary individual may share the role of student, but not with any other role.
+								.form-horizontal
+									fieldset
+										legend
+										.form-group
+											label.col-md-4.control-label(for='PrimaryName') Name
+											.col-md-4
+												input#textinputName.form-control.input-md(name='PrimaryName', type='text', placeholder='name', value="#{block.PrimaryName}")
+
+										.form-group
+											label.col-md-4.control-label(for='PrimaryTitle') Title
+											.col-md-4
+												input#PrimaryTitle.form-control.input-md(name='PrimaryTitle', type='text', placeholder='title', value="#{block.PrimaryTitle}" )
+												span.help-block If Applicable
+										.form-group
+											label.col-md-4.control-label(for='PrimaryNetId') NetID
+											.col-md-4
+												input#PrimaryEmail.form-control.input-md(name='PrimaryNetId', type='text', placeholder='xyzabc', value="#{block.PrimaryNetId}")
+
+												span.help-block Exclude '@uw.edu'. Enter only your NetID
+										.form-group
+											label.col-md-4.control-label(for='PrimaryPhone') Phone
+											.col-md-4
+												input#PrimaryPhone.form-control.input-md(name='PrimaryPhone', type='text', placeholder='999-999-9999', value="#{block.PrimaryPhone}")
+
+												span.help-block Due to the public nature of the UW, your phone will be shared freely
+										.form-group
+											label.col-md-4.control-label(for='PrimaryMail') Mail
+											.col-md-4
+												input#PrimaryMail.form-control.input-md(name='PrimaryMail', type='text', placeholder='abc', value="#{block.PrimaryMail}")
+
+												span.help-block If Applicable
+								h4.text-center  Budget
+								span.help-block The Budget Director is whom we speak with for anything regarding the transfer of funds. They cannot be the same person as the Head, Primary or Student
+								.form-horizontal
+									fieldset
+										legend
+										.form-group
+											label.col-md-4.control-label(for='BudgetName') Name
+											.col-md-4
+												input#BudgetName.form-control.input-md(name='BudgetName', type='text', placeholder='name', value="#{block.BudgetName}")
+
+										.form-group
+											label.col-md-4.control-label(for='BudgetTitle') Title
+											.col-md-4
+												input#BudgetTitle.form-control.input-md(name='BudgetTitle', type='text', placeholder='title', value="#{block.BudgetTitle}")
+
+										.form-group
+											label.col-md-4.control-label(for='BudgetNetId') NetID
+											.col-md-4
+												input#BudgetEmail.form-control.input-md(name='BudgetNetId', type='text', placeholder='xyzabc', value="#{block.BudgetNetId}")
+
+												span.help-block Exclude '@uw.edu'. Enter only the NetID
+										.form-group
+											label.col-md-4.control-label(for='BudgetPhone') Phone
+											.col-md-4
+												input#BudgetPhone.form-control.input-md(name='BudgetPhone', type='text', placeholder='999-999-9999',value="#{block.BudgetPhone}")
+										.form-group
+											label.col-md-4.control-label(for='BudgetMail') Mailbox
+											.col-md-4
+												input#BudgetMail.form-control.input-md(name='BudgetMail', type='text', placeholder='abc', value="#{block.BudgetMail}")
+								h4.text-center  Organization Head
+								span.help-block Every block must have a Dean or Department Head supporting it. This cannot be the same person listed under Budget, Primary or Student
+								.form-horizontal
+									fieldset
+										legend
+										.form-group
+											label.col-md-4.control-label(for='HeadName') Name
+											.col-md-4
+												input#HeadName.form-control.input-md(name='HeadName', type='text', placeholder='name', value="#{block.HeadName}")
+										.form-group
+											label.col-md-4.control-label(for='HeadTitle') Title
+											.col-md-4
+												input#HeadTitle.form-control.input-md(name='HeadTitle', type='text', placeholder='title', value="#{block.HeadTitle}")
+										.form-group
+											label.col-md-4.control-label(for='HeadNetId') NetID
+											.col-md-4
+												input#HeadEmail.form-control.input-md(name='HeadNetId', type='text', placeholder='xyzabc', value="#{block.HeadNetId}")
+												span.help-block Exclude '@uw.edu'. Enter only the NetID
+										.form-group
+											label.col-md-4.control-label(for='HeadPhone') Phone
+											.col-md-4
+												input#HeadPhone.form-control.input-md(name='HeadPhone', type='text', placeholder='999-999-9999' value="#{block.HeadPhone}")
+										.form-group
+											label.col-md-4.control-label(for='HeadMail') Mailbox
+											.col-md-4
+												input#HeadMail.form-control.input-md(name='HeadMail', type='text', placeholder='abc', value="#{block.HeadMail}")
+
+
+										.form-group
+											label.col-md-4.control-label(for='save')
+											br
+											.col-md-4
+											.col-md-4
+												button.btn.btn-default.form-button(name='save' type='submit') Save
+				#step-2.row.setup-content
+					.form-horizontal(data-toggle='formcache', name='description')
+						.col-xs-12
+							.col-md-12.well
+								.form-horizontal
+									fieldset
+										legend
+										.form-group
+											label.col-md-4.control-label(for='History') History
+											.col-md-8
+												textarea#History.form-control(name='History', maxlength="2000") #{block.History}
+												#background.span.help-block Please describe all relevant history regarding your organization
+
+										.form-group
+											label.col-md-4.control-label(for='VisionStatement') Vision Statement
+											.col-md-8
+												textarea#VisionStatement.form-control(name='VisionStatement') #{block.VisionStatement}
+												#VisionStatement.span.help-block Please describe your organization's vision statement or mission
+
+										.form-group
+											label.col-md-4.control-label(for='Goals', maxlength="2000") Goals
+											.col-md-8
+												textarea#Goals.form-control(name='Goals') #{block.Goals}
+												span.help-block Describe your organizations short and long-term goals
+
+										.form-group
+											label.col-md-4.control-label(for='save')
+											.col-md-4
+												button.btn.btn-default.form-button(name='save' type='submit') Save
+
+				#step-3.row.setup-content
+					.form-horizontal(data-toggle='formcache', name='description')
+						.col-xs-12
+							.col-md-12.well
+								.form-horizontal
+									fieldset
+										legend
+										.form-group
+											label.col-md-4.control-label(for='Structure') Structure 
+											.col-md-8
+												textarea#Structure.form-control(name='Structure') #{block.Structure}
+												#Structure.span.help-block Please explain your organizational structure 
+
+										.form-group
+											label.col-md-4.control-label(for='Service') Services Organization
+											.col-md-8
+												textarea#Service.form-control(name='Service', maxlength="2000") #{block.Service}
+												span.help-block What services do your organization provide to students? How are they organized?
+												
+										.form-group
+											label.col-md-4.control-label(for='Administration', maxlength="2000") Access and Adminstration
+											.col-md-8
+												textarea#Administration.form-control(name='Administration') #{block.Administration}
+												span.help-block What's the accessbility for your reseources, and how are they administered?
+										
+										.form-group
+											label.col-md-4.control-label(for='save')
+											.col-md-4
+												button.btn.btn-default.form-button(name='save' type='submit') Save
+
+				#step-4.row.setup-content
+					.form-horizontal(data-toggle='formcache', name='description')
+						.col-xs-12
+							.col-md-12.well
+								.form-horizontal
+									fieldset
+										legend
+
+										.form-group
+											label.col-md-4.control-label(for='Estimate') Estimated Yearly Ask
+											.col-md-4
+												.input-group
+													.input-group-addon $
+													input#Estimate.form-control.input(name='Estimate', min='0' type='number', placeholder='100', value="#{block.Estimate}")
+												span.help-block How much money are you expecting to ask for every year? Look to past proposals if helpful to judge a reasonable number
+
+										.form-group
+											label.col-md-4.control-label(for='Budget') Budget Overview
+											.col-md-8
+												textarea#Budget.form-control(name='Budget', maxlength="2000") #{block.Budget}
+												span.help-block Please provide a budget overview for your organization
+
+										.form-group
+											label.col-md-4.control-label(for='Included', maxlength="2000") Expenses Included
+											.col-md-8
+												textarea#Included.form-control(name='Included') #{block.Included}
+												span.help-block What will be included in your estimated yearly asks? What do you expect the committee will be funding?
+
+										.form-group
+											label.col-md-4.control-label(for='OtherSources', maxlength="2000") Other Sources of Support
+											.col-md-8
+												textarea#OtherSources.form-control(name='OtherSources') #{block.OtherSources}
+												span.help-block What other organizations contribute to yours through finances, resources, or other support?
+
+
+										.form-group
+											label.col-md-4.control-label(for='save')
+											.col-md-4
+												button.btn.btn-default.form-button(name='save' type='submit') Save
+
+
+
+				#step-5.row.setup-content
+					.col-xs-12
+						.col-md-12.well
+							.form-horizontal
+								fieldset
+									.form-group
+										label.col-md-4.control-label(for='Turnover') Turnover Plan
+										.col-md-8
+											textarea#Turnover.form-control(name='Turnover', maxlength="2000") #{block.Turnover}
+											span.help-block As people leave and join your organization, how will it adapt and ensure steady, continued student value?
+
+
+
+									.form-group
+										label.col-md-4.control-label(for='PlanB', maxlength="2000") Contingency Plan
+										.col-md-8
+											textarea#PlanB.form-control(name='PlanB') #{block.PlanB}
+											span.help-block What would your organization do without STFC support?
+
+											.form-group
+												label.col-md-4.control-label(for='save')
+												.col-md-4
+													button.btn.btn-default.form-button(name='save' type='submit') Save
+									
+		div
+			form.form-horizontal(data-toggle='formcache', name='blockForm',
+				method='get', action='/block/submit/#{block.Year}/#{block.Number}')
+				#step-6.row.setup-content
+					.col-xs-12
+						.col-md-12
+							.well
+								.form-horizontal
+									h2 Signatures
+									p: a(href='/blocks/#{block.id}') View Draft
+									p To submit your block to the Committee,  all contacts must sign this block signature page. 
+									p Send this page's link to the contacts listed in your block contact page. Ensure their NetID are spelled correctly. Each contact will need to click 'Sign block.'
+									p By signing this block, a department pledges general, physical, and financial support to this block. Submitting a block also represents the department and contact's agreement with STF policies and procedures.
+
+									h3 Status
+									.row
+										.col-xs-12.col-md-4.text-center
+											.sig-wrap(class='#{block.PrimarySignature == 0 ? "disabled" : ""}')
+												h4 Primary Author
+												p 
+													if block.PrimarySignature == 0
+														if block.PrimaryNetId == netId 
+															button(type='button').btn.btn-warning.sign-btn Sign block
+														else
+															span.unsigned Unsigned
+													else
+														span.signed Signed
+										.col-xs-12.col-md-4.text-center
+											.sig-wrap(class='#{block.HeadSignature == 0 ? "disabled" : ""}')
+												h4 Head or Department Head
+												p 
+													if block.HeadSignature == 0
+														if block.HeadNetId == netId 
+															button(type='button').btn.btn-warning.sign-btn Sign block
+														else
+															span.unsigned Unsigned
+													else
+														span.signed Signed
+										.col-xs-12.col-md-4.text-center
+											.sig-wrap(class='#{block.BudgetSignature == 0 ? "disabled" : ""}')
+												h4 Budget Director
+												p 
+													if block.BudgetSignature == 0
+														if block.BudgetNetId == netId 
+															button(type='button').btn.btn-warning.sign-btn Sign block
+														else
+															span.unsigned Unsigned
+													else
+														span.signed Signed
+
+									p Once all signatures have been collected, the Submit button will be available. Upon submitting your block, you will be unable to alter it. The committee will review your proposal, and find a time to invite you to present
+									.row
+										.col-xs-4.col-xs-offset-8.col-md-2.col-md-offset-10
+											a(href='/blocks/submit/#{block.id}')
+												button#submitblock(type='button' class='#{block.BudgetSignature == 1 && block.PrimarySignature == 1 && block.HeadSignature == 1 ? "" : "disabled"}').btn.form-button Submit block
+
+
+

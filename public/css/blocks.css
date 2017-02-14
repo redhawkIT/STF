@@ -1,0 +1,25 @@
+.block {
+	background-color: #eee;
+	border-radius: 6px;
+	overflow: hidden;
+	border: solid #ddd 1px;
+	margin-bottom: 40px;
+}
+
+.block .jumbotron {
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+.block-desc {
+	margin: 20px;
+}
+
+.jumbotron h2 {
+	color: white;
+}
+
+.btn {
+	margin-bottom: 10px;
+	margin-right: 10px;
+}

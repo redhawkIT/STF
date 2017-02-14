@@ -1,0 +1,87 @@
+//- partial for the head and navbar of documents (besides raw html)
+
+//- for the purple banner and uw logo
+header#top.main-header.navbar.navbar-static-top.bs-docs-nav(role='banner')
+	.container
+		.navbar-header
+			button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='.bs-navbar-collapse')
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+			a.navbar-brand(href='http://uw.edu')
+				img(src='/img/w.svg', alt='', style='height: 75px;')
+				img.hidden-xs(src='/img/uw.svg', alt='', style='height: 20px;')
+				// Navigation
+				//container insures correct placement for IE
+
+.announcement
+	.container
+		h1 Updating for Spring Proposals
+		p The site is being updated to begin accepting Spring proposals. Before we open submission, we need to update the website's backend infrastructure. The website will be down for approximately 15 minutes, ending at #[b 12:45pm]
+
+//- for the STF logo, white bar, and navigation
+nav.navbar.navbar-default.sub-nav
+	.container
+		.navbar-header
+			button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+			a.navbar-brand.navbar-stf(href='/'): img(src='/img/logo.png')
+		.navbar-collapse.collapse
+			ul.nav.navbar-nav
+				li.dropdown
+					a.dropdown-toggle(href='#', data-toggle='dropdown') Proposals 
+						span.caret
+					ul.dropdown-menu(role='menu')
+						li: a(href='/proposals/splash') Create New
+						li: a(href='/proposals/browse') Browse All
+						li: a(href='/proposals/myproposals') My Proposals
+						if isAdmin || isCommitteeMember
+							li(role='seperator' class='divider')
+							li: a(href='/metrics') Metrics
+				li: a(href='/blocks') Blocks
+				li.dropdown
+					a.dropdown-toggle(href='#', data-toggle='dropdown') Documents
+						span.caret
+					ul.dropdown-menu(role='menu')
+						li: a(href='/documents') Browse
+						li: a(href='http://www.washington.edu/itconnect/wares/acquiring-software-and-hardware/keyserver-help-for-it-staff/' target ='_blank') Key Server
+						li: a(href='/docs/Current%20Request%20for%20Proposals.pdf' target='_blank') RFP
+				li: a(href='/calendar') Calendar
+
+
+				//- todo li: a(href='#') Explore
+			ul.nav.navbar-nav.navbar-right
+				if isAdmin
+					ul.nav.navbar-nav
+						li.dropdown
+							a.dropdown-toggle(href='#', data-toggle='dropdown') Admin
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li: a(href='/metrics') Metrics
+								li: a(href='/metrics/voting') Voting
+								li: a(href='/admin/users') View Users
+								li: a(href='/admin/departments') Departments
+								li: a(href='/supplementals/browse') Supplementals
+								li(role='seperator' class='divider')
+								li: a(href='/admin/award') Awards
+								li: a(href='/admin') Advanced
+				else if isCommitteeMember
+					ul.nav.navbar-nav
+						li.dropdown
+							a.dropdown-toggle(href='#', data-toggle='dropdown') Committee Member
+								span.caret
+							ul.dropdown-menu(role='menu')
+								li: a(href='/metrics') Metrics
+								li: a(href='/metrics/voting') Voting
+								li: a(href='/supplementals/browse') Supplementals
+				li.active
+					if netId
+						a(href='/user')= netId
+					else
+						a(href='/loginuser#{loc}') Login
+
+		// /.nav-collapse

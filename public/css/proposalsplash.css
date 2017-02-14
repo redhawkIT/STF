@@ -1,0 +1,27 @@
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+}
+
+.col-wrapper {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.col-inner {
+	background-color: #eee; 
+	padding: 10px;
+	border-radius: 0px;
+}
+
+.col-inner h4 {
+	padding-top: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+.important > div {
+	background-color: #ffd1d1 !important;
+}

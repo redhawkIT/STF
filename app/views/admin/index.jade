@@ -1,0 +1,110 @@
+extends ../head
+
+append css
+	link(rel='stylesheet' href='css/admin.css')
+	link(href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet")
+
+append js
+	script(src='/js/admin.js')
+	script(src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js")
+block content
+	.jumbotron(style='background: url(img/admin.jpg); background-position: center 15%; background-repeat: no-repeat; background-size: cover;')
+		.container
+			h1 Admin Panel
+			p Edit and change things others can't!
+
+	.container
+		if message
+			h3= subject
+			p= message
+
+		h2 Update Submission Settings
+		form(method='post', action='/admin/updateSettings')
+			fieldset.form-group
+				if settings.ProposalSubmissions == 1 
+					input(name="submissions", type="checkbox", id="toggle-trigger", checked, data-on="Opened", data-off="Closed",data-toggle="toggle", data-size="small")
+				else
+					input(name="submissions", type="checkbox", id="toggle-trigger", data-on="Opened", data-off="Closed", data-toggle="toggle", data-size="small")
+				label Request for Proposals (RFP) submissions
+		button#updateSettingsButton Update
+		
+		div#submissionNotification
+
+		h2 Reset Year/Ids
+		p Clicking this option WILL reset the ids and progress a year for the RFP process (eg. 2016-80 to 2017-1)
+		p
+			strong Current Year: #{settings.CurrentYear}
+		p
+			strong Current Number: #{settings.CurrentNumber}
+		form(method='post', action='/admin/resetYear')
+			p Are you sure? 
+			label 
+				input(type='radio', name='confirm', value="1")
+				| Yes 
+			label 
+				input(type='radio', name='confirm', value="0", checked='checked')
+				| No 
+				button#resetYearButton Submit
+		
+		div#resetNotification
+
+		h2 Change Quarter
+		p Change the quarter to reflect the current RFP cycle. The selected quarter will be associated with each proposal during that submission time period.
+		p
+			strong Current Quarter: #{settings.CurrentQuarter}
+		form(method='post', action='/admin/changeQuarter')
+			select(name='quarter') 
+				option(value='Summer') Summer
+				option(value='Autumn') Autumn
+				option(value='Winter') Winter
+				option(value='Spring') Spring
+			button#changeQuarterButton Submit
+		
+		div#quarterNotification
+
+		h2 Add or Change Member
+		p Add or change the status of a committee member. Basic members can create metrics and vote. Admin members can do everything you can. Disabled members are unable to do anything. Changing your own account WILL work.
+		form(method='post', action='/admin/addChange')
+			input(type='text', name='netIdAddChange', placeholder='NetID', size='14')
+			select(name='permissions') 
+				option(value='1') Basic
+				option(value='0') Disabled
+				option(value='2') Admin
+			button#addChangeButton Submit
+
+		div#memberNotification
+
+		h2 Change a proposal status
+		p Manually change a proposal status if necessary.
+		form(method='post', action='/admin/proposalChange')
+			input(type='text', name='proposalChangeYear', placeholder='Year', size='12')
+			input(type='text', name='proposalChangeNumber', placeholder='Number', size='12')
+			select(name='proposalStatus') 
+				option(value='0') Working Proposal (not submitted)
+				option(value='1') Submitted Proposal
+				option(value='6') Not funded
+				option(value='8') Cancelled
+			button#proposalChangeButton Submit
+			
+		div#proposalNotification
+
+		h2 Remove Member
+		p Remove a member from the committee. All metrics and voting data from the member will be expunged. You cannot undo this action. If you're looking to stop a member from completing actions, but still keep their data, use the above disable option
+		form(method='post', action='/admin/userRemove')
+			input(type='text', name='netIdUserRemove', placeholder='NetID', size='14')
+			|  Are you sure? 
+			label 
+				input(type='radio', name='sure', value="1")
+				| Yes 
+			label 
+				input(type='radio', name='sure', value="0", checked='checked')
+				| No 
+				button#userRemoveButton Submit
+
+		h2 Edit a Proposal
+		p You have super-special access to edit any proposal, even ones that have been submitted. Enter a proposal number to jump to its edit page
+		form(method='get', action='/admin/editProposal')
+			input(type='text', name='proposalEditYear', placeholder='Year', size='12')
+			input(type='text', name='proposalEditNumber', placeholder='Number', size='12')
+			button#editProposalButton Submit
+		div#notification

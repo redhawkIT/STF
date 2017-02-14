@@ -1,0 +1,15 @@
+config/
+
+.Trash*
+
+nohup.out
+
+oldSTFSite/
+
+security/
+
+public/docs
+
+node_modules
+
+uploads/

@@ -1,0 +1,47 @@
+extends ../head
+
+append css
+	link(rel='stylesheet' href='/css/metricsview.css')
+
+append js
+	script(src='/js/metricsview.js')
+
+block content
+	.container
+		h2 Metrics for #{proposal.ProposalTitle}
+		a(href='/proposals/#{proposal.Year}/#{proposal.Number}') View Proposal
+		|  / 
+		a(href='/create/metrics/#{proposal.Year}/#{proposal.Number}') Write or Update Metrics
+
+
+		if metrics.length == 0
+			p There are not yet metrics for this proposal
+		else 
+			table.table.table-hover.table-striped-column
+				tr
+					th User
+
+					
+					each val, index in list
+						th.selectors= index
+					th Avg
+					if isAdmin || isCommitteeMember
+						th Notes
+					
+
+				each val, index in list
+					tr: td.hidden(id="#{index}" colspan='100')= val
+
+				each metric in metrics
+					tr
+						td= users[metric.AuthorId].NetId
+						- var total = 0
+						- var j = 0
+						each val, index in list
+							td= metric[index]
+							- total += metric[index];
+							-j++
+						- total = total / j;
+						td= total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+						if isAdmin || isCommitteeMember
+							td(style="white-space: pre-line;")= metric.Notes

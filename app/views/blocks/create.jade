@@ -1,0 +1,100 @@
+extends ../head
+
+append css
+	link(rel='stylesheet' href='/css/proposalcreate.css')
+
+append js
+	script(src='/js/blockcreate.js')
+
+block content
+	.container
+		h2 Create New Block Invitation
+		p Use this page to create a new invitation to an organization for block status. Once you submit, the committee will vote on extension of the invitation. Please fill out the following fields before submitting
+
+		form(method='post' action='/blocks/create')
+			.row.setup-content
+				.form-horizontal
+					.col-xs-12
+						.col-md-12.well
+							.form-horizontal
+								fieldset
+									.form-group
+										label.col-md-4.control-label(for='Name') Name
+										.col-md-4
+											input(required type='text' name='Name').form-control#Name.input-md
+											span.help-block The name of the organization you're proposing to
+							h4.text-center Primary Contact
+							span.help-block The primary contact is the first person the committee communicates with. For blocks, it's expected that the block head is the primary contact
+							.form-horizontal
+								fieldset
+									.form-group
+										label.col-md-4.control-label(for='PrimaryNetId') Primary NetID
+										.col-md-4
+											input(required type='text' name='PrimaryNetId').form-control#PrimaryNetId.input-md
+											span.help-block The NetID of the primary contact. Exclude @uw.edu (e.g. stfchair )
+									.form-group
+										label.col-md-4.control-label(for='PrimaryName') Primary Name
+										.col-md-4
+											input(required type='text' name='PrimaryName').form-control#PrimaryName.input-md
+											span.help-block The name of the primary contact
+							h4.text-center Budget Contact
+							span.help-block The budget contact is used for any money related inquiries. This section may be left blank to be filled in by the potential block as they complete their application
+							.form-horizontal
+								fieldset
+									.form-group
+										label.col-md-4.control-label(for='BudgetNetId') Budget NetID
+										.col-md-4
+											input(type='text' name='BudgetNetId').form-control#BudgetNetId.input-md
+									.form-group
+										label.col-md-4.control-label(for='BudgetName') Budget Name
+										.col-md-4
+											input(type='text' name='BudgetName').form-control#BudgetName.input-md
+							h4.text-center Organization Head Contact
+							span.help-block The organization's head, or a similar person of importance who can sign off on the long-term goals of the block and the STFC. This section may be left blank to be filled in by the potential block as they complete their application
+							.form-horizontal
+								fieldset									
+									.form-group
+										label.col-md-4.control-label(for='HeadNetId') Organization Head NetID
+										.col-md-4
+											input(type='text' name='HeadNetId').form-control#HeadNetId.input-md
+									.form-group
+										label.col-md-4.control-label(for='HeadName') Organization Head Name
+										.col-md-4
+											input(type='text' name='HeadName').form-control#HeadName.input-md
+							h4.text-center Rationale
+							span.help-block It's not every day that the STFC considers a new block! Please write a small abstract explaining why you are approaching this group for block funding. Considering history, current events, motives and benefits gained while writing will help frame the motion for future committees
+							.form-horizontal
+								fieldset
+									.form-group
+										label.col-md-4.control-label(for='ProposedAbstract') Abstract
+										.col-md-8
+											textarea(required name='ProposedAbstract').form-control#ProposedAbstract.input-md
+									.form-group
+										label.col-md-4.control-label(for='submit')
+										br
+										.col-md-4
+										.col-md-4
+											button.btn.btn-default.form-button(type='submit') Submit for Committee Vote
+
+							input(type='hidden' name='PrimaryTitle' value='')
+							input(type='hidden' name='PrimaryPhone' value='')
+							input(type='hidden' name='PrimaryMail' value='')
+							input(type='hidden' name='BudgetTitle' value='')
+							input(type='hidden' name='BudgetPhone' value='')
+							input(type='hidden' name='BudgetMail' value='')
+							input(type='hidden' name='HeadTitle' value='')
+							input(type='hidden' name='HeadPhone' value='')
+							input(type='hidden' name='HeadMail' value='')
+							input(type='hidden' name='VisionStatement' value='')
+							input(type='hidden' name='History' value='')
+							input(type='hidden' name='Structure' value='')
+							input(type='hidden' name='Estimate' value='')
+							input(type='hidden' name='Budget' value='')
+							input(type='hidden' name='Service' value='')
+							input(type='hidden' name='Turnover' value='')
+							input(type='hidden' name='Goals' value='')
+							input(type='hidden' name='Included' value='')
+							input(type='hidden' name='Administration' value='')
+							input(type='hidden' name='PlanB' value='')
+							input(type='hidden' name='OtherSources' value='')
+							input(type='hidden' name='Background' value='')

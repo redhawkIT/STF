@@ -1,0 +1,57 @@
+h2 Open Proposals (#{settings.CurrentQuarter} #{settings.CurrentYear})
+p The following proposals are open for discussion or voting. Once you vote on a proposal, you will NOT be able to change your vote.
+if data
+	each proposal in data
+		.proposal
+			if proposal.VotingDisplay == 1 || proposal.Status == 2
+				.row
+					.col-xs-12.col-md-8
+						h3 ID# #{proposal.Year}-#{proposal.Number}: #{proposal.ProposalTitle}
+					.col-xs-12.col-md-4
+						!{proposal.StatusHtml}
+						
+
+				if proposal.VotingDisplay == 1
+					p.
+						<a href='/proposals/#{proposal.Year}/#{proposal.Number}'> View Proposal </a> / <a href='/metrics/#{proposal.Year}/#{proposal.Number}'> View Metrics </a>
+					
+					p #{proposal.ends ? (proposal.ends + (proposal.ends == 1 ? ' Endorsement' : ' Endorsements')) : 'No Endorsements for this Proposal'} 
+
+					h4 Abstract
+					p= proposal.Abstract
+					if proposal.metrics
+						.metrics
+							h4 Metrics
+							-var avg = 0
+							-var i = 0
+							each metric in proposal.metrics
+								.row
+									.col-xs-6
+										p: b #{users[metric.AuthorId].NetId}
+									.col-xs-6.text-right
+										-avg += (avgScores[metric.AuthorId] * 1.0)
+										-i++
+										p <b>Score: #{avgScores[metric.AuthorId]}</b> 
+								.notes
+									p= metric.Notes
+									hr
+
+							-avg = (avg / i)
+							p <b>Total Average</b>
+							p= avg.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+				h4 Voting
+				if proposal.Status == 2 
+					if voted.indexOf(proposal.id) === -1
+						input(type='hidden' name='proposalId' value='#{proposal.id}')
+						.col-xs-3
+							select(name='vote' id='#{proposal.id}').form-control
+								option(value='-1') Yes
+								if data[proposal.id].partials
+									each partial in data[proposal.id].partials
+										option(value='#{partial.id}') (ID: #{partial.id}) #{partial.Title}
+								option(value='-2') No
+						button(id='#{proposal.id + "button"}' type='button').vote-button.btn.form-button Vote
+					else 
+						p You've already voted on this proposal
+				else
+					p Voting is not open at this time

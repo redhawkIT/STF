@@ -1,0 +1,14 @@
+//-generic error page
+
+extends head
+
+block content
+	.container
+		if error.stack
+			h1 Internal Error
+			p The website encountered an internal error when trying to create this page. Here is some technical information for the error encountered
+			pre= error.stack
+	
+		else
+			h1= message
+			p= error.status

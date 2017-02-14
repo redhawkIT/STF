@@ -1,0 +1,41 @@
+extends ../head
+
+append css
+	link(rel='stylesheet' href='/css/metrics.css')
+	link(rel='stylesheet' href='/css/dynatable.css')
+
+append js
+	script(src='/js/dynatable.js')
+	script(type='text/javascript')
+		$(document).ready(function() {
+		$('#dynatable').dynatable();
+		});
+
+
+block content
+	.jumbotron(style='background: url(img/metrics.jpg); background-position: center 32%; background-repeat: no-repeat; background-size: cover;')
+		.container
+			h1 Metrics
+	.container
+		.row
+			.col-md-3.col-xs-12.pull-right.sidebar
+				h3 Voting
+				p Members may vote <a href='/metrics/voting'> here</a> when voting is open.
+			.col-md-9.col-xs-12
+				h2 Scores for Submitted Proposals
+				table.table.table-striped#dynatable
+					thead
+						tr
+							th Number
+							th Title
+							th Avg Score
+					tbody
+						each proposal in proposals
+							tr
+								td: b= proposal.Number
+								td: a(href='/proposals/#{proposal.Year}/#{proposal.Number}')= proposal.ProposalTitle
+									
+								if scores[proposal.id] == undefined
+									td: a(href='/metrics/#{proposal.Year}/#{proposal.Number}') No score
+								else
+									td: a(href='/metrics/#{proposal.Year}/#{proposal.Number}')= scores[proposal.id].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
