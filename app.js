@@ -104,7 +104,7 @@ app.use(function removeTrailingSlashes(req, res, next) {
 });
 
 
-//for seamless integration fo new users. An Admin will add a netid, 
+//for seamless integration for new users. An Admin will add a netid, 
 //and when that netid logs in, we grab their info and insert it to teh database
 //should be refactored into some other place, slows down things right now
 app.use(function memberAddIfNotExists(req, res, next) {
