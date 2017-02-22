@@ -54,6 +54,9 @@ function itemMaker(req, res) {
 //Make a new item from posted data. 
 router.post('/items/new', function(req, res) {
 	if (h.approvedEditor(res, req.user, req.body['ProposalId']) ||  h.approvedReporter(res, req.user, req.body['ProposalId'])) {
+		console.log(req.body)
+		req.body.Price = (req.body.Price ? req.body.Price : '0')
+		req.body.Quantity = (req.body.Quantity ? req.body.Quantity : '0')
 		db.Item.create(req.body).then(function(item) {
 			res.json({
 				message: "Success", 

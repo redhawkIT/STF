@@ -144,7 +144,7 @@ function renderVotingFullOrPartial(fullPage, req, res) {
 				db.Proposal.findAll({
 					where: {
 						Year: settings.CurrentYear,
-						Quarter: settings.CurrentQuarter,
+						Quarter: 'Winter',
 						$or: {
 							Status: 2,
 							VotingDisplay: 1

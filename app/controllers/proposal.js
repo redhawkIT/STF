@@ -232,6 +232,7 @@ router.post('/proposals/:year/:number', shib.ensureAuth('/login'), function post
 				HumanResources: req.body["HumanResources"],
 				TechnologyResources: req.body["TechnologyResources"],
 				FinancialResources: req.body["FinancialResources"],
+				DepartmentBudget: req.body["DepartmentBudget"],
 				Protection: req.body["Protection"]
 			}
 
@@ -386,7 +387,7 @@ router.get('/proposals/browse', function(req, res) {
 	db.Proposal.findAll({
 		where: {
 			Status: [1, 2, 3, 4, 5, 6]
-		}
+		}, order: 'Year ASC, Number'
 	}).then(function(proposals) {
 		db.Legacy_Proposal.findAll({
 			where: {
@@ -403,7 +404,7 @@ router.get('/proposals/browse', function(req, res) {
 				proposals: proposals,
 				title: "Browse all Proposals",
 				categories: categories
-				});
+			});
 		});
 	});
 });

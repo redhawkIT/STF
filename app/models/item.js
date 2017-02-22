@@ -10,8 +10,14 @@ module.exports = function(sequelize, DataTypes) {
 		LocationId: 'MEDIUMINT',
 		ItemName: DataTypes.STRING,
 		Group: DataTypes.STRING,
-		Quantity: DataTypes.INTEGER,
-		Price: DataTypes.FLOAT,
+		Quantity: {
+			type: DataTypes.INTEGER,
+			defaultValue: 0
+		},
+		Price: {
+			type: DataTypes.FLOAT,
+			defaultValue: 0
+		},
 		Justification: DataTypes.TEXT,
 		Description: DataTypes.TEXT
 	});
