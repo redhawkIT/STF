@@ -303,7 +303,7 @@ block content
 					th Subtotal		
 
 				each item in items
-					if item.PartialId == partial.id	
+					if item.PartialId == partial.id	&& item.SupplementalId == null
 						+item(item)
 				+total()
 

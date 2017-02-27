@@ -28,7 +28,7 @@ router.get('/supplementals/browse', function(req, res) {
 });
 
 
-router.get('/supplemental/view/:id', function(req, res) {
+router.get('/supplemental/view/:id', shib.ensureAuth('/login'), function(req, res) {
 	db.User.find({
 		where: {
 			NetId: req.user.netId
@@ -39,6 +39,12 @@ router.get('/supplemental/view/:id', function(req, res) {
 				id: req.params.id
 			}
 		}).then(function(sup) {
+			if (!sup) {
+				return res.render('error', {
+					message: 'Supplemental Not Found',
+					error:{status: 'We cannot access this particular Supplemental'}
+				})
+			}
 			db.Vote.findAll({
 				where: {
 					SupplementalId: sup.id
@@ -64,11 +70,23 @@ router.get('/supplemental/view/:id', function(req, res) {
 						id: sup.ProposalId
 					}
 				}).then(function(proposal) {
+					if (!proposal) {
+						return res.render('error', {
+							message: 'Proposal Not Found',
+							error:{status: 'We cannot access this particular Supplemental'}
+						})
+					}
 					db.Item.findAll({
 						where: {
 							SupplementalId: sup.id
 						}
 					}).then(function(itemsSup) {
+						if (!itemsSup) {
+							return res.render('error', {
+								message: 'Supplemental Items Not Found',
+								error:{status: 'We cannot access this particular Supplemental'}
+							})
+						}
 						db.Item.findAll({
 							where: {
 								ProposalId: proposal.id,
@@ -82,13 +100,27 @@ router.get('/supplemental/view/:id', function(req, res) {
 										ProposalId: proposal.id
 									}
 								}).then(function(partial) {
+									if (!partial) {
+										return res.render('error', {
+											message: 'Partial Not Found',
+											error:{status: 'We cannot access this particular Supplemental'}
+										})
+									}
 									console.log(partial)
 									db.Item.findAll({
 										where: {
-											PartialId: partial.id
+											PartialId: partial.id,
+											SupplementalId: null
 										}
 									}).then(function(itemsPart) {
+										if (!itemsPart) {
+											return res.render('error', {
+												message: 'Partial Items Not Found',
+												error:{status: 'We cannot access this particular Supplemental'}
+											})
+										}
 										res.render('proposals/supplemental', {
+											title: sup.Title,
 											supplemental: sup,
 											vote: vote,
 											votesYes: votesYes,
@@ -105,6 +137,7 @@ router.get('/supplemental/view/:id', function(req, res) {
 								})
 							} else {
 								res.render('proposals/supplemental', {
+									title: sup.Title,
 									supplemental: sup,
 									vote: vote,
 									votesYes: votesYes,

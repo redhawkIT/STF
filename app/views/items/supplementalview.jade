@@ -41,18 +41,15 @@ block content
 									input#Price.form-control.input-md(name='Price', type='text', placeholder='$', value="#{item.Price}")
 							.form-group
 								label.col-md-4.control-label(for='Justification') Justification
-								.col-md-4
-									textarea(rows="5")#Justification.form-control(name='Justification') #{item.Justification} 
+								.col-md-8
+									textarea(rows="9")#Justification.form-control(name='Justification') #{item.Justification} 
 							.form-group
 								label.col-md-4.control-label(for='Description') Description
-								.col-md-4
-									textarea(rows="5")#Description.form-control(name='Description') #{item.Description}
+								.col-md-8
+									textarea(rows="9")#Description.form-control(name='Description') #{item.Description}
 							.form-group
 								.col-md-4.col-md-offset-4
 									button#saveItem.btn.btn-default.form-button(name='saveItem', type="submit") Save
-									|  
-									a(href="/item/location/#{item.id}") 
-										button(type='button').btn.btn-default +Location
 									|  
 									a(href="/items/new/supplemental/#{supplemental.id}/#{proposal.id}") 
 										button(type='button').btn.btn-default +New Item
@@ -71,6 +68,8 @@ block content
 
 				else
 					form.form-horizontal#editItem(name='editSupplemental', method='post')
+						span.help-block Welcome to the Supplemental Edit page. We've copied all your proposal's items over into this new supplemental. Please use these pages to change your the items to reflect #[b all items] if the supplemental were funded. For example, if an item's price has changed, click the item and change its price field; if you're adding new items for approval, leave the old items in. #[b Your supplemental should include all items in the proposal you're still purchasing. Changes included in the Abstract will not be considered! All changes to be approved must be reflected on the items]. View the draft proposal to ensure it makes sense
+						span.help-block Make sure to title your supplemental, write an abstract below, edit any items to the left, and add new items if necessary before hitting submit. Once you submit, the committee will consider your proposal as soon as possible, usually by the next week's meeting 
 						fieldset
 							legend
 							.form-group
@@ -79,21 +78,22 @@ block content
 									input#SupplementalTitle.form-control.input-md(name='SupplementalTitle', type='text', placeholder='...', value="#{supplemental.Title}")
 							.form-group
 								label.col-md-4.control-label(for='Abstract') Abstract
-								.col-md-4
+								.col-md-8
 									textarea#Abstract.form-control(name='Abstract', rows="7") #{supplemental.Abstract}
-									#Abstract.span.help-block Please provide context for this supplemental
+									#Abstract.span.help-block Please provide context for this supplemental (e.g. why you're asking for the change in funds requested, what caused the change, etc.)
 							.form-group
-								label.col-md-4.control-label(for='saveItem')
-								.col-md-4
+								.col-md-4.col-md-offset-4
 									button#saveItem.btn.btn-default.form-button(name='saveItem', type="submit") Save
+									|  
+									a(href="/items/new/supplemental/#{supplemental.id}/#{proposal.id}") 
+										button(type='button').btn.btn-default + New Item
 							.form-group
-								.col-md-4.col-md-offset-4
+								.col-md-8.col-md-offset-4
 									a(href='/supplemental/view/#{supplemental.id}')
-										button#returnSupplemental.btn.btn-default(name='return', type='button') View Draft Supplemental
-							.form-group
-								.col-md-4.col-md-offset-4
+										button#returnSupplemental.btn.btn-default(name='return', type='button') View Draft
+									| 
 									a(href='/proposals/#{proposal.Year}/#{proposal.Number}')
-										button#return.btn.btn-default(name='return', type='button') Return to Proposal
+										button#return.btn.btn-default(name='return', type='button') View Proposal
 					form.form-horizontal(method="post", action="/supplemental/submit/#{supplemental.id}")
 						.form-group
 							.col-md-4.col-md-offset-4

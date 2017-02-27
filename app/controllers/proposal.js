@@ -821,6 +821,8 @@ router.get('/proposals/:year/:number', function(req, res) {
 													loggedIn = true;
 												}
 
+												console.log(partials)
+
 												res.render('proposals/view', {
 													title: proposal.ProposalTitle,
 													proposal: proposal,
