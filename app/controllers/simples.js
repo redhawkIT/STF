@@ -137,9 +137,10 @@ router.get('/about', function serveAbout(req, res) {
 
 //displays the policy page
 router.get('/policies', function servePolicies(req, res) {
-	res.render('simples/policies', {
-		title : 'Policies'
-	});
+	res.redirect('/documents/Policy')
+	// res.render('simples/policies', {
+	// 	title : 'Policies'
+	// });
 });
 
 

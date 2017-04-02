@@ -29,16 +29,20 @@ block content
 									select(name='voteDecision' disabled).form-control
 										option(value='1') Approve
 										option(value='0') Deny
+										option(value='2') Abstain
 									button(disabled)#voteButton.btn Submit
 									if vote.Value == 1
 										p You have already voted to approve this supplemental
 									if vote.Value == 0
 										p You have already voted to deny this supplemental
+									if vote.Value == 2
+										p you have already voted to abstain from this supplemental
 							else 
 								form(method='post', action='/api/v1/vote/supplemental/#{supplemental.id}')
 									select(name='voteDecision').form-control
 										option(value='1') Approve
 										option(value='0') Deny
+										option(value='2') Abstain
 									button#voteButton.btn Submit
 						if supplemental.Status == 1
 							p This supplemental has been approved.
@@ -46,6 +50,7 @@ block content
 							p this supplemental has been denied.
 						p #{votesNo} x Deny
 						p #{votesYes} x Approve
+						p #{votesAb} x Abstain
 					hr
 					if isAdmin || (editor && supplemental.Status == 0)
 						h3 Editor
@@ -156,128 +161,6 @@ mixin biColumn()
 
 
 
-			//- for i, n in itemsProp
-			//- 	- a = n
-			//- 	- totalProp += i.Quantity * i.Price
-			//- 	- j = itemsSup[n]
-			//- 	- totalSup += j.Quantity * j.Price
-
-
-			//- 	tr
-			//- 		td #{i.ItemName} 
-
-
-			//- 		td 
-			//- 			button(id='buttonShow#{k}').btnShow.btn: span.glyphicon.glyphicon-menu-down
-			//- 			button(id='buttonHide#{k}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up
-					
-
-			//- 		td
-			//- 			+format(i.Price)
-
-
-			//- 		td #{i.Quantity}
-
-
-			//- 		td
-			//- 			+format(i.Quantity * i.Price)
-		
-
-			//- 		if i.ItemName.trim() == j.ItemName.trim() && i.Description.trim() == j.Description.trim() && i.Justification.trim() == j.Justification.trim()
-			//- 			if j.Price != i.Price
-			//- 				td: b 
-			//- 					+format(j.Price)
-			//- 			else 
-			//- 				td 
-			//- 					+format(j.Price)
-
-
-
-			//- 			if j.Quantity != i.Quantity
-			//- 				td: b #{j.Quantity}
-			//- 			else
-			//- 				td #{j.Quantity}
-
-
-			//- 			if j.Quantity * j.Price != i.Quantity * i.Price
-			//- 				td: b
-			//- 					+format(j.Quantity * j.Price)
-			//- 			else
-			//- 				td 
-			//- 					+format(j.Quantity * j.Price)
-
-
-			//- 			tr(id='desc#{k}').hidden
-			//- 				- k++
-			//- 				td(colspan='8')= i.Description + i.Justification
-
-
-
-			//- 		else
-			//- 			td(colspan='3')
-			//- 			tr(id='desc#{k}').hidden
-			//- 				- k++
-			//- 				td(colspan='8')= i.Description + i.Justification
-			//- 			tr
-			//- 				td #{j.ItemName}
-			//- 				td 
-			//- 					button(id='buttonShow#{k}').btnShow.btn: span.glyphicon.glyphicon-menu-down
-			//- 					button(id='buttonHide#{k}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up
-			//- 				td(colspan='3')
-			//- 				td: b 
-			//- 					+format(j.Price)
-			//- 				td: b #{j.Quantity}
-			//- 				td: b 
-			//- 					+format(j.Price * j.Quantity)
-			//- 			tr(id='desc#{k}').hidden
-			//- 				- k++
-			//- 				td(colspan='8')= j.Description + j.Justification
-			
-
-			//- - a++
-			//- - for (var n = a; n < itemsSup.length; n++)
-			//- 	- j = itemsSup[n]
-			//- 	- totalSup += j.Quantity * j.Price
-			//- 	tr
-			//- 		td #{j.ItemName}
-			//- 		td 
-			//- 			button(id='buttonShow#{k}').btnShow.btn: span.glyphicon.glyphicon-menu-down
-			//- 			button(id='buttonHide#{k}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up
-
-			//- 		td(colspan='3')
-
-
-			//- 		td: b
-			//- 			+format(j.Price)
-
-			//- 		td: b  #{j.Quantity}
-
-			//- 		td: b
-			//- 			+format(j.Price * j.Quantity)
-
-			//- 		tr(id='desc#{k}').hidden
-			//- 			- k++
-			//- 			td(colspan='8')= j.Description + j.Justification
-
-
-
-
-			//- tr
-			//- 	td: b Total 
-			//- 	td(colspan='3')
-			//- 	td: b
-			//- 		+format(totalProp)
-			//- 	td #{((totalProp > totalSup) ? '-' : '+')} 
-			//- 		+format(Math.abs(totalProp - totalSup))
-			//- 	td =
-			//- 	td: b
-			//- 		+format(totalSup)
-
-
-
-
-
-
 mixin triColumn()
 	table.table
 		thead
@@ -370,138 +253,11 @@ mixin triColumn()
 							if last
 								+desc(l, last)
 								-l++
-							+print(null, k, precols, l, true)
+							+print(null, k, 6, l, true)
 							+desc(l, last)
 							-l++
 
 				- n++;
-
-
-							//- if j.Price != i.Price
-					//- 			td: b 
-					//- 				+format(j.Price)
-					//- 		else 
-					//- 			td $#{j.Price}
-
-
-					//- 		if j.Quantity != i.Quantity
-					//- 			td: b #{j.Quantity}
-					//- 		else
-					//- 			td #{j.Quantity}
-
-
-					//- 		if j.Quantity * j.Price != i.Quantity * i.Price
-					//- 			td: b
-					//- 				+format(j.Quantity * j.Price)
-					//- 		else
-					//- 			td 
-					//- 				+format(j.Quantity * j.Price)
-
-
-
-
-					//- else 
-					//- 	//- j does not exist
-					//- 	td(colspan='3')
-					//- 	//-tr
-					//- 		td #{j.ItemName}
-					//- 		td 
-					//- 			button(id='buttonShow#{l}').btnShow.btn: span.glyphicon.glyphicon-menu-down #{l}b
-					//- 			button(id='buttonHide#{l}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up #{l}b
-					//- 		td(colspan='3')
-					//- 		td: b $#{j.Price}
-					//- 		td: b #{j.Quantity}
-					//- 		td: b $#{j.Price * j.Quantity}
-
-					//- 		if k != null && k != undefined && k.ItemName.trim() == j.ItemName.trim() && k.Description.trim() == j.Description.trim() && k.Justification.trim() == j.Justification.trim()
-					//- 			if j.Price != k.Price
-					//- 				td: b 
-					//- 					+format(k.Quantity * k.Price)
-					//- 			else 
-					//- 				td $#{k.Price}
-
-
-					//- 			if j.Quantity != k.Quantity
-					//- 				td: b #{k.Quantity}
-					//- 			else
-					//- 				td #{k.Quantity}
-
-
-					//- 			if j.Quantity * j.Price != k.Quantity * k.Price
-					//- 				td: b
-					//- 					+format(k.Quantity * k.Price)
-					//- 			else
-					//- 				td 
-					//- 					+format(k.Quantity * k.Price)
-					//- 		else
-					//- 			td(colspan='3')
-
-
-					//- 		tr(id='desc#{l}').hidden
-					//- 			- l++
-					//- 			td(colspan='11')= j.Description + j.Justification
-
-
-
-					//- if k != undefined && k != null
-					//- 	if k.ItemName.trim() == last.ItemName.trim() && k.Description.trim() == last.Description.trim() && k.Justification.trim() == last.Justification.trim()
-
-					//- 		if last.Price != k.Price
-					//- 			td: b 
-					//- 				+format(k.Quantity * k.Price)
-					//- 		else 
-					//- 			td $#{k.Price}
-
-
-					//- 		if last.Quantity != k.Quantity
-					//- 			td: b #{k.Quantity}
-					//- 		else
-					//- 			td #{k.Quantity}
-
-
-					//- 		if last.Quantity * last.Price != k.Quantity * k.Price
-					//- 			td: b
-					//- 				+format(k.Quantity * k.Price)
-					//- 		else
-					//- 			td 
-					//- 				+format(k.Quantity * k.Price)
-
-
-					//- 		tr(id='desc#{l}').hidden
-					//- 			- l++
-					//- 			td(colspan='11')= k.Description + k.Justification
-
-
-
-					//- 	else 
-					//- 		//- an item or desc or something is different from funded to supp
-					//- 		td(colspan='9') hurr
-					//- 		tr(id='desc#{l}').hidden
-					//- 			- l++
-					//- 			td(colspan='11')= k.Description + k.Justification
-					//- 		tr
-					//- 			td #{k.ItemName}
-					//- 			td 
-					//- 				button(id='buttonShow#{l}').btnShow.btn: span.glyphicon.glyphicon-menu-down #{l}c
-					//- 				button(id='buttonHide#{l}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up #{l}c
-					//- 			td(colspan='3')
-					//- 			td: b $#{k.Price}
-					//- 			td: b #{k.Quantity}
-					//- 			td: b $#{k.Price * k.Quantity}
-
-
-					//- else 
-					//- 	//- we've run out of supplemental items to compare
-					//- 	- for (var n = a; n < itemsSup.length; n++)
-					//- 		- k = itemsSup[n]
-					//- 		tr
-					//- 			td #{k.ItemName}
-
-
-
-
-
-
 
 			tr
 				td: b Total 
@@ -526,35 +282,33 @@ mixin format(num)
 
 
 mixin print(y, z, precols, l, named)
+
 	if named
 		td #{z.ItemName}
 
 		td 
-			button(id='buttonShow#{l}').btnShow.btn: span.glyphicon.glyphicon-menu-down #{l}
-			button(id='buttonHide#{l}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up #{l}
+			button(id='buttonShow#{l}').btnShow.btn: span.glyphicon.glyphicon-menu-down
+			button(id='buttonHide#{l}').btnHide.hidden.btn.btn-danger: span.glyphicon.glyphicon-menu-up
 
 	if precols
 		td(colspan='#{precols}')
 
-	if y != null && y.Price != z.Price
-		td: b 
-			+format(z.Price)
+	if (y != null && y.Price != z.Price) || precols != 0 && y == null
+		td: b: +format(z.Price)
 	else 
-		td $#{z.Price}
+		td: +format(z.Price)
 
 
-	if y != null && y.Quantity != z.Quantity
+	if (y != null && y.Quantity != z.Quantity) || precols != 0 && y == null
 		td: b #{z.Quantity}
 	else
 		td #{z.Quantity}
 
 
-	if y != null && y.Quantity * y.Price != z.Quantity * z.Price
-		td: b
-			+format(z.Quantity * z.Price)
+	if (y != null && y.Quantity * y.Price != z.Quantity * z.Price) || precols != 0 && y == null
+		td: b: +format(z.Quantity * z.Price)
 	else
-		td 
-			+format(z.Quantity * z.Price)
+		td: +format(z.Quantity * z.Price)
 
 
 mixin desc(l, z)

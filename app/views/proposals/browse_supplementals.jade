@@ -28,7 +28,12 @@ block content
 						tr
 							td: a(href='/supplemental/view/#{supplemental.id}') #{supplemental.Title}
 							td #{supplemental.Author}
-							td: a(href='/proposals/#{supplemental.Year}/#{supplemental.Number}') View
+							td: a(href='/proposals/#{supplemental.Year}/#{supplemental.Number}') #{supplemental.Year} - #{supplemental.Number}
 							td= supplemental.voteCount
 			else
 				p There are currently no submitted supplementals
+
+
+				Proposal year, number, quarter, title, status [funded, partial, not funded], category, department, org codes, primary [name, phone, netid], budget [name, phone, netid]
+
+				filter by quarter and year1

@@ -10,10 +10,8 @@ module.exports = function(app) {
 	app.use('/', router);
 };
 
-//ensure login on all supplemental pages
-router.all('/supplemental*', shib.ensureAuth('/login'), function(req, res, next) {next()} );
 
-router.get('/supplementals/browse', function(req, res) {
+router.get('/supplementals/browse', shib.ensureAuth('/login'), function(req, res) {
 	if(res.locals.isCommitteeMember || res.locals.isAdmin) {
 		getSupplementalProposals(function(supplementals) {
 			console.log(supplementals[0].voteCount)
@@ -52,16 +50,19 @@ router.get('/supplemental/view/:id', shib.ensureAuth('/login'), function(req, re
 			}).then(function(votes) {
 				var votesYes = 0;
 				var votesNo = 0;
+				var votesAb = 0;
 				var vote;
-				console.log(req.user)
+
 				for (v in votes) {
 					if (votes[v].Value == 0) {
 						votesNo++;
 					} else if (votes[v].Value == 1) {
 						votesYes++;
-					} if (votes[v].VoterId == user.id) {
+					} else if (votes[v].Value == 2) {
+						votesAb++;
+
+					} if (user && votes[v].VoterId == user.id) {
 						vote = votes[v];
-						console.log(vote)
 					}
 				}
 
@@ -125,6 +126,7 @@ router.get('/supplemental/view/:id', shib.ensureAuth('/login'), function(req, re
 											vote: vote,
 											votesYes: votesYes,
 											votesNo: votesNo,
+											votesAb: votesAb,
 											proposal: proposal,
 											itemsSup: itemsSup,
 											itemsProp: itemsProp,
@@ -142,6 +144,7 @@ router.get('/supplemental/view/:id', shib.ensureAuth('/login'), function(req, re
 									vote: vote,
 									votesYes: votesYes,
 									votesNo: votesNo,
+									votesAb: votesAb,
 									proposal: proposal,
 									itemsSup: itemsSup,
 									itemsProp: itemsProp,
@@ -467,7 +470,7 @@ router.get('/ASDFASDF/view/:supplemental', function(req, res) {
 });
 
 //create a new supplemental with duplicated items
-router.get('/supplementals/new/:id', function(req, res) {
+router.get('/supplementals/new/:id', shib.ensureAuth('/login'), function(req, res) {
 	if (res.locals.isAdmin || res.locals.isCommitteeMember || h.approvedReporter(res, res.user, db.Proposal.find({where:{id: req.params.id}}))) {
 
 		db.Proposal.find({
@@ -631,7 +634,7 @@ function copyItemLocation(newItem, oldId) {
 }
 
 
-router.get('/supplemental/:supplemental/:item', function(req, res) {
+router.get('/supplemental/:supplemental/:item', shib.ensureAuth('/login'), function(req, res) {
 	//find supplemental
 	//check res.locals.netId with netid associated with supplemental
 	//get all items and render page
@@ -703,7 +706,7 @@ router.get('/supplemental/:supplemental/:item', function(req, res) {
 });
 
 //deletes a supplemental and all items associated with it
-router.post('/supplemental/delete/:supplemental', function(req, res) {
+router.post('/supplemental/delete/:supplemental', shib.ensureAuth('/login'), function(req, res) {
 	db.Supplemental.find({
 		where: {id:req.params.supplemental}
 	})
@@ -747,7 +750,7 @@ router.post('/supplemental/delete/:supplemental', function(req, res) {
 });
 
 //submits a supplemental
-router.post('/supplemental/submit/:supplemental', function(req, res) {
+router.post('/supplemental/submit/:supplemental', shib.ensureAuth('/login'), function(req, res) {
 	db.Supplemental.update({
 		Submitted: 1
 	},
@@ -760,7 +763,7 @@ router.post('/supplemental/submit/:supplemental', function(req, res) {
 });
 
 //update title of supplemental and redirects
-router.post('/supplemental/:supplemental/:item', function(req, res) {
+router.post('/supplemental/:supplemental/:item', shib.ensureAuth('/login'), function(req, res) {
 	if(req.params.item == 0) {
 		db.Supplemental.update(
 		{
@@ -796,7 +799,7 @@ router.post('/supplemental/:supplemental/:item', function(req, res) {
 });
 
 //approve or deny a supplemental -- must check if there's enough votes to change supplemental status (only on vote accepted)
-router.post('/api/v1/vote/supplemental/:supplemental', function(req, res) {
+router.post('/api/v1/vote/supplemental/:supplemental', shib.ensureAuth('/login'), function(req, res) {
 	//need to check if active user
 	db.User.find({
 		where: {
